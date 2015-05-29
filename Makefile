@@ -14,7 +14,7 @@ RM = rm -f
 
 LIB = 
 TRG = sim-test
-SRC = sim-test.c datetime.c
+SRC = sim-test.c datetime.c polynomial.c
 
 DEFINES =
 
@@ -43,6 +43,7 @@ dis: $(TRG).elf
 	avr-objdump-turbo -D --architecture=avr:5  $(TRG).elf >$(TRG).dis
 
 clean:
+	cd tests && ${MAKE} clean
 	$(RM) *.o *~
 	$(RM) $(TRG).dis
 	$(RM) $(TRG).elf

@@ -31,21 +31,30 @@ typedef struct {
 
 /**
  * @name decode_bcd:
+ *   Extract a two-decimal-digit number from the one-byte
+ *   binary-coded-decimal input `in`. Place the result in
+ *   the eight-bit result value pointed to by `result`.
  */
 boolean_t decode_bcd(uint8_t *result, uint8_t in);
 
 /**
  * @name decode_bcd_uint16:
+ *   Extract a two-decimal-digit number from the one-byte
+ *   binary-coded-decimal input `in`. Place the result in
+ *   the sixteen-bit result value pointed to by `result`.
  */
 boolean_t decode_bcd_uint16(uint16_t *result, uint8_t in);
 
 /**
- * @name retrieve_current_time:
+ * @name stk_retrieve_current_datetime:
+ *   Retrieve the current *local* date and time as an `stk_datetime_t`.
+ *   If compiling for AVR, this uses the Bladox SIM Application Toolkit
+ *   library to fetch date/time information directly from the mobile
+ *   equipment (ME). If compiling for a normal Unix-ish system, this
+ *   function uses `gettimeofday` and `localtime`.
  */
-#if defined __AVR__
-  boolean_t stk_retrieve_current_time(stk_datetime_t *result,
-                                      stk_datetime_info_t *info);
-#endif /* defined __AVR__ */
+boolean_t stk_retrieve_current_datetime(stk_datetime_t *result,
+                                        stk_datetime_info_t *info);
 
 /**
  * @name stk_set_datetime:
@@ -64,7 +73,9 @@ boolean_t stk_set_datetime(stk_datetime_t *t, uint16_t y,
 boolean_t stk_validate_datetime(stk_datetime_t *t);
 
 /**
- * @name stk_calculate_day_number:
+ * @name stk_calculate_datetime_day_number:
+ *   Calculate the day number of the date in `t`. January 1st
+ *   of the year zero (1 BCE) is day zero.
  */
 boolean_t stk_calculate_datetime_day_number(int32_t *result,
                                             stk_datetime_t *t);

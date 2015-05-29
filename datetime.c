@@ -8,6 +8,9 @@
 
 /**
  * @name decode_bcd:
+ *   Extract a two-decimal-digit number from the one-byte
+ *   binary-coded-decimal input `in`. Place the result in
+ *   the eight-bit result value pointed to by `result`.
  */
 boolean_t decode_bcd(uint8_t *result, uint8_t in) {
 
@@ -24,6 +27,9 @@ boolean_t decode_bcd(uint8_t *result, uint8_t in) {
 
 /**
  * @name decode_bcd_uint16:
+ *   Extract a two-decimal-digit number from the one-byte
+ *   binary-coded-decimal input `in`. Place the result in
+ *   the sixteen-bit result value pointed to by `result`.
  */
 boolean_t decode_bcd_uint16(uint16_t *result, uint8_t in) {
 
@@ -38,7 +44,24 @@ boolean_t decode_bcd_uint16(uint16_t *result, uint8_t in) {
 }
 
 /**
- * @name stk_retrieve_current_time:
+ * @name _stk_compare_datetime_times:
+ *   Compare only the time portions of `t1` and `t2`, ignoring the
+ *   date portion entirely. Return 0 if the two times are equal,
+ *   -1 if `t1` is greater, and 1 if `t2` is greater.
+ */
+static int _stk_compare_datetime_times(stk_datetime_t *t1,
+                                       stk_datetime_t *t2) {
+
+  return (
+    (t1->hour == t2->hour)
+      ? ((t1->minute == t2->minute) ? 0
+          : (t1->minute > t2->minute ? -1 : 1))
+      : (t1->hour > t2->hour ? -1 : 1)
+  );
+}
+
+/**
+ * @name stk_retrieve_current_datetime:
  *   Retrieve the current *local* date and time as an `stk_datetime_t`.
  *   If compiling for AVR, this uses the Bladox SIM Application Toolkit
  *   library to fetch date/time information directly from the mobile
@@ -46,7 +69,7 @@ boolean_t decode_bcd_uint16(uint16_t *result, uint8_t in) {
  *   function uses `gettimeofday` and `localtime`.
  */
 #if defined __AVR__
-boolean_t stk_retrieve_current_time(stk_datetime_t *result,
+boolean_t stk_retrieve_current_datetime(stk_datetime_t *result,
                                     stk_datetime_info_t *info) {
 
   stk_datetime_info_t default_datetime_info = {
@@ -105,8 +128,8 @@ boolean_t stk_retrieve_current_time(stk_datetime_t *result,
   return TRUE;
 }
 #else
-boolean_t stk_retrieve_current_time(stk_datetime_t *result,
-                                    stk_datetime_info_t *info) {
+boolean_t stk_retrieve_current_datetime(stk_datetime_t *result,
+                                        stk_datetime_info_t *info) {
 
   struct tm tm;
   struct timeval tv;
@@ -201,6 +224,8 @@ boolean_t stk_validate_datetime(stk_datetime_t *t) {
 
 /**
  * @name stk_calculate_datetime_day_number:
+ *   Calculate the day number of the date in `t`. January 1st
+ *   of the year zero (1 BCE) is day zero.
  */
 boolean_t stk_calculate_datetime_day_number(int32_t *result,
                                             stk_datetime_t *t) {
@@ -235,22 +260,6 @@ boolean_t stk_calculate_datetime_day_number(int32_t *result,
   }
 
   return TRUE;
-}
-
-/**
- * @name _stk_compare_datetime_times:
- *   Compare only the time portions of `t1` and `t2`, ignoring the
- *   date portion entirely. Return 0 if the two times are equal,
- *   -1 if `t1` is greater, and 1 if `t2` is greater.
- */
-int _stk_compare_datetime_times(stk_datetime_t *t1, stk_datetime_t *t2) {
-
-  return (
-    (t1->hour == t2->hour)
-      ? ((t1->minute == t2->minute) ? 0
-          : (t1->minute > t2->minute ? -1 : 1))
-      : (t1->hour > t2->hour ? -1 : 1)
-  );
 }
 
 /**

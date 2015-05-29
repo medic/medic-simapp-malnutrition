@@ -151,8 +151,6 @@ int main(int argc, char *argv[]) {
   valid = stk_subtract_datetime(&result, &t2, &t1);
   assert(valid == TRUE); assert(result == -1);
 
-
-
   return 0;
 }
 

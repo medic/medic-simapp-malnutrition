@@ -15,7 +15,7 @@ void display_datetime(void *data) {
 
   stk_datetime_t t;
 
-  if (!stk_retrieve_current_time(&t, NULL)) {
+  if (!stk_retrieve_current_datetime(&t, NULL)) {
     display_text("Error retrieving time", NULL);
     return;
   }
