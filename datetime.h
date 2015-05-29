@@ -66,8 +66,8 @@ boolean_t stk_validate_datetime(stk_datetime_t *t);
 /**
  * @name stk_calculate_day_number:
  */
-boolean_t stk_calculate_day_number(int32_t *result,
-                                   stk_datetime_t *t);
+boolean_t stk_calculate_datetime_day_number(int32_t *result,
+                                            stk_datetime_t *t);
 
 /**
  * @name stk_subtract_datetime:

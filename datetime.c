@@ -200,10 +200,10 @@ boolean_t stk_validate_datetime(stk_datetime_t *t) {
 }
 
 /**
- * @name stk_calculate_day_number:
+ * @name stk_calculate_datetime_day_number:
  */
-boolean_t stk_calculate_day_number(int32_t *result,
-                                   stk_datetime_t *t) {
+boolean_t stk_calculate_datetime_day_number(int32_t *result,
+                                            stk_datetime_t *t) {
 
   if (!stk_validate_datetime(t)) {
     return FALSE;
@@ -238,6 +238,22 @@ boolean_t stk_calculate_day_number(int32_t *result,
 }
 
 /**
+ * @name _stk_compare_datetime_times:
+ *   Compare only the time portions of `t1` and `t2`, ignoring the
+ *   date portion entirely. Return 0 if the two times are equal,
+ *   -1 if `t1` is greater, and 1 if `t2` is greater.
+ */
+int _stk_compare_datetime_times(stk_datetime_t *t1, stk_datetime_t *t2) {
+
+  return (
+    (t1->hour == t2->hour)
+      ? ((t1->minute == t2->minute) ? 0
+          : (t1->minute > t2->minute ? -1 : 1))
+      : (t1->hour > t2->hour ? -1 : 1)
+  );
+}
+
+/**
  * @name stk_subtract_datetime:
  *   Subtract the stk_datetime_t value `t1` from `t2`, and place the
  *   answer in `result`. The `result` variable is expressed as a signed
@@ -249,15 +265,22 @@ boolean_t stk_subtract_datetime(int32_t *result,
 
   int32_t day1, day2;
 
-  if (!stk_calculate_day_number(&day2, t2)) {
+  if (!stk_calculate_datetime_day_number(&day2, t2)) {
     return FALSE;
   }
   
-  if (!stk_calculate_day_number(&day1, t1)) {
+  if (!stk_calculate_datetime_day_number(&day1, t1)) {
     return FALSE;
   }
 
+  /* Date portion */
   *result = day2 - day1;
+
+  /* Time portion */
+  if (_stk_compare_datetime_times(t2, t1) < 0) {
+    *result += (*result >= 0 ? -1 : 1);
+  }
+
   return TRUE;
 }
 
