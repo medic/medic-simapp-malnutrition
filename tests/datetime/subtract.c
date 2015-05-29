@@ -33,14 +33,14 @@ int main(int argc, char *argv[]) {
 
   valid = stk_set_datetime(&t1, 1982, 1, 1, 5, 30);
   assert(valid == TRUE);
-  valid = stk_set_datetime(&t2, 2015, 5, 28, 4, 50);
+  valid = stk_set_datetime(&t2, 2015, 5, 28, 14, 50);
   assert(valid == TRUE);
   valid = stk_subtract_datetime(&result, &t2, &t1);
   assert(valid == TRUE); assert(result == 12200);
 
   valid = stk_set_datetime(&t1, 1982, 1, 1, 5, 30);
   assert(valid == TRUE);
-  valid = stk_set_datetime(&t2, 2015, 5, 28, 14, 50);
+  valid = stk_set_datetime(&t2, 2015, 5, 28, 4, 50);
   assert(valid == TRUE);
   valid = stk_subtract_datetime(&result, &t2, &t1);
   assert(valid == TRUE); assert(result == 12199);
@@ -72,7 +72,7 @@ int main(int argc, char *argv[]) {
   valid = stk_set_datetime(&t2, 2000, 1, 2, 5, 0);
   assert(valid == TRUE);
   valid = stk_subtract_datetime(&result, &t2, &t1);
-  assert(valid == TRUE); assert(result == 1);
+  assert(valid == TRUE); assert(result == 0);
 
   valid = stk_set_datetime(&t1, 2000, 1, 1, 5, 0);
   assert(valid == TRUE);
@@ -86,21 +86,21 @@ int main(int argc, char *argv[]) {
   valid = stk_set_datetime(&t2, 2000, 1, 2, 15, 0);
   assert(valid == TRUE);
   valid = stk_subtract_datetime(&result, &t2, &t1);
-  assert(valid == TRUE); assert(result == 0);
+  assert(valid == TRUE); assert(result == 1);
 
   valid = stk_set_datetime(&t1, 2000, 1, 1, 5, 30);
   assert(valid == TRUE);
   valid = stk_set_datetime(&t2, 2000, 1, 2, 5, 0);
   assert(valid == TRUE);
   valid = stk_subtract_datetime(&result, &t2, &t1);
-  assert(valid == TRUE); assert(result == 1);
+  assert(valid == TRUE); assert(result == 0);
 
   valid = stk_set_datetime(&t1, 2000, 1, 1, 5, 0);
   assert(valid == TRUE);
   valid = stk_set_datetime(&t2, 2000, 1, 2, 5, 30);
   assert(valid == TRUE);
   valid = stk_subtract_datetime(&result, &t2, &t1);
-  assert(valid == TRUE); assert(result == 0);
+  assert(valid == TRUE); assert(result == 1);
 
   valid = stk_set_datetime(&t1, 2000, 1, 2, 5, 0);
   assert(valid == TRUE);
@@ -122,6 +122,36 @@ int main(int argc, char *argv[]) {
   assert(valid == TRUE);
   valid = stk_subtract_datetime(&result, &t2, &t1);
   assert(valid == TRUE); assert(result == -1);
+
+  valid = stk_set_datetime(&t1, 0, 1, 2, 5, 0);
+  assert(valid == TRUE);
+  valid = stk_set_datetime(&t2, 0, 1, 1, 15, 0);
+  assert(valid == TRUE);
+  valid = stk_subtract_datetime(&result, &t2, &t1);
+  assert(valid == TRUE); assert(result == 0);
+
+  valid = stk_set_datetime(&t1, 0, 1, 2, 1, 5);
+  assert(valid == TRUE);
+  valid = stk_set_datetime(&t2, 0, 1, 1, 1, 15);
+  assert(valid == TRUE);
+  valid = stk_subtract_datetime(&result, &t2, &t1);
+  assert(valid == TRUE); assert(result == 0);
+
+  valid = stk_set_datetime(&t1, 0, 1, 1, 1, 5);
+  assert(valid == TRUE);
+  valid = stk_set_datetime(&t2, 0, 1, 2, 1, 15);
+  assert(valid == TRUE);
+  valid = stk_subtract_datetime(&result, &t2, &t1);
+  assert(valid == TRUE); assert(result == 1);
+
+  valid = stk_set_datetime(&t1, 0, 1, 2, 1, 15);
+  assert(valid == TRUE);
+  valid = stk_set_datetime(&t2, 0, 1, 1, 1, 5);
+  assert(valid == TRUE);
+  valid = stk_subtract_datetime(&result, &t2, &t1);
+  assert(valid == TRUE); assert(result == -1);
+
+
 
   return 0;
 }

@@ -277,8 +277,17 @@ boolean_t stk_subtract_datetime(int32_t *result,
   *result = day2 - day1;
 
   /* Time portion */
-  if (_stk_compare_datetime_times(t2, t1) < 0) {
-    *result += (*result >= 0 ? -1 : 1);
+  boolean_t is_positive = (*result > 0);
+  int comparison = _stk_compare_datetime_times(t2, t1);
+
+  if (comparison > 0) {
+    if (is_positive) {
+      *result -= 1;
+    }
+  } else if (comparison < 0) {
+    if (!is_positive) {
+      *result += 1;
+    }
   }
 
   return TRUE;
