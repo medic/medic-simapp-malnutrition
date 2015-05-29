@@ -1,5 +1,7 @@
 # Makefile
 
+CFLAGS += -g -Wall
+
 all:
 	@for dir in *; do \
 	  if [ -d "$$dir" ]; then \
