@@ -29,7 +29,7 @@ boolean_t polynomial_evaluate(float *result,
  */
 boolean_t polynomial_table_entry_match(polynomial_table_entry_t *t,
                                        uint8_t nr_identifiers,
-                                       polynomial_table_identifier_t *id) {
+                                       polynomial_table_id_t *id) {
 
   if (nr_identifiers > t->nr_identifiers) {
     return FALSE;
@@ -45,6 +45,17 @@ boolean_t polynomial_table_entry_match(polynomial_table_entry_t *t,
 }
 
 /**
- * @name polynomial_table_find_first:
+ * @name polynomial_table_find:
  */
+polynomial_table_entry_t *polynomial_table_find(polynomial_table_entry_t *t,
+                                                uint8_t nr_identifiers,
+                                                polynomial_table_id_t *id) {
 
+  for (; t->nr_identifiers > 0; t++) {
+    if (polynomial_table_entry_match(t, nr_identifiers, id)) {
+      return t;
+    }
+  }
+
+  return NULL;
+}

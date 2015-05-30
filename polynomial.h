@@ -23,9 +23,9 @@ typedef polynomial_result_t polynomial_coefficient_t;
 typedef int16_t polynomial_range_point_t;
 
 /**
- * @name polynomial_table_identifier_t:
+ * @name polynomial_table_id_t:
  */
-typedef int8_t polynomial_table_identifier_t;
+typedef int8_t polynomial_table_id_t;
 
 /**
  * @name polynomial_fn_max_degree:
@@ -55,7 +55,7 @@ typedef struct {
  */
 typedef struct {
   uint8_t nr_identifiers;
-  polynomial_table_identifier_t id[POLYNOMIAL_MAX_TABLE_ENTRY_IDENTIFIERS];
+  polynomial_table_id_t id[POLYNOMIAL_MAX_TABLE_ENTRY_IDENTIFIERS];
   polynomial_t fn;
 } polynomial_table_entry_t;
 
@@ -78,7 +78,14 @@ boolean_t polynomial_evaluate(float *result,
  */
 boolean_t polynomial_table_entry_match(polynomial_table_entry_t *t,
                                        uint8_t nr_identifiers,
-                                       polynomial_table_identifier_t *id);
+                                       polynomial_table_id_t *id);
+
+/**
+ * @name polynomial_table_find:
+ */
+polynomial_table_entry_t *polynomial_table_find(polynomial_table_entry_t *t,
+                                                uint8_t nr_identifiers,
+                                                polynomial_table_id_t *id);
 
 #endif /* __POLYNOMIAL_H__ */
 
