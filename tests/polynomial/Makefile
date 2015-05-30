@@ -19,5 +19,6 @@ run:
 	done
 
 clean:
+	rm -rf *.dSYM
 	rm -f $(TARGETS) *.o *~
 

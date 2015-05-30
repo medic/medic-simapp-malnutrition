@@ -24,3 +24,27 @@ boolean_t polynomial_evaluate(float *result,
   return TRUE;
 };
 
+/**
+ * @name polynomial_table_entry_match:
+ */
+boolean_t polynomial_table_entry_match(polynomial_table_entry_t *t,
+                                       uint8_t nr_identifiers,
+                                       polynomial_table_identifier_t *id) {
+
+  if (nr_identifiers > t->nr_identifiers) {
+    return FALSE;
+  }
+
+  for (unsigned int i = 0; i < nr_identifiers; ++i) {
+    if (t->id[i] != id[i]) {
+      return FALSE;
+    }
+  }
+
+  return TRUE;
+}
+
+/**
+ * @name polynomial_table_find_first:
+ */
+
