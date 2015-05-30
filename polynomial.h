@@ -76,16 +76,17 @@ boolean_t polynomial_evaluate(float *result,
 /**
  * @name polynomial_table_entry_match:
  */
-boolean_t polynomial_table_entry_match(polynomial_table_entry_t *t,
+boolean_t polynomial_table_entry_match(const polynomial_table_entry_t *t,
                                        uint8_t nr_identifiers,
                                        polynomial_table_id_t *id);
 
 /**
  * @name polynomial_table_find:
  */
-polynomial_table_entry_t *polynomial_table_find(polynomial_table_entry_t *t,
-                                                uint8_t nr_identifiers,
-                                                polynomial_table_id_t *id);
+const polynomial_table_entry_t *
+  polynomial_table_find(const polynomial_table_entry_t *t,
+                        uint8_t nr_identifiers,
+                        polynomial_table_id_t *id);
 
 #endif /* __POLYNOMIAL_H__ */
 
