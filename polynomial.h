@@ -54,9 +54,17 @@ typedef struct {
  * @name polynomial_table_entry_t:
  */
 typedef struct {
-  polynomial_t poly;
+  unsigned int nr_identifiers;
   polynomial_table_identifier_t id[POLYNOMIAL_MAX_TABLE_ENTRY_IDENTIFIERS];
+  polynomial_t fn;
 } polynomial_table_entry_t;
+
+
+/**
+ * @name polynomial_table_end:
+ */
+#define POLYNOMIAL_TABLE_END \
+  { 0, {}, { 0, { 0, 0 }, {} } }
 
 /**
  * @name polynomial_evaluate:

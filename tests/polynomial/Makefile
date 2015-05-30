@@ -1,6 +1,6 @@
 # Makefile
 
-TARGETS := simple
+TARGETS := simple table
 
 CFLAGS += -I../..
 LIBRARY_SRC := ../../polynomial.c
@@ -8,6 +8,9 @@ LIBRARY_SRC := ../../polynomial.c
 all: $(TARGETS) run
 
 simple: simple.c
+	$(CC) -o $@ $(CFLAGS) $(LIBRARY_SRC) $<
+
+table: table.c
 	$(CC) -o $@ $(CFLAGS) $(LIBRARY_SRC) $<
 
 run:
