@@ -1,7 +1,4 @@
 
-/* Raise limits */
-#define POLYNOMIAL_FN_MAX_DEGREE (16)
-
 #include <assert.h>
 #include "polynomial.h"
 

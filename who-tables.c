@@ -6,8 +6,8 @@
  */
 static const polynomial_table_entry_t tables[] = {
 
-  { 3, { T_WFA, G_FEMALE, -4 },
-    { 6, { 0, 1856 }, {
+  { { T_WFA, G_FEMALE, -4 },
+    { { 0, 1856 }, {
       1.6759740922389,
       0.0232748769615228
       -0.0000605260015320574,

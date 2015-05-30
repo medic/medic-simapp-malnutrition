@@ -5,7 +5,7 @@ CFLAGS += -g -Wall
 all:
 	@for dir in *; do \
 	  if [ -d "$$dir" ]; then \
-	    (cd "$$dir" && ${MAKE}) || exit 1; \
+	    (cd "$$dir" && CFLAGS='${CFLAGS}' ${MAKE}) || exit 1; \
 	  fi; \
 	done
 

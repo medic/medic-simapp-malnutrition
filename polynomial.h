@@ -30,22 +30,34 @@ typedef int8_t polynomial_table_id_t;
 /**
  * @name polynomial_fn_max_degree:
  */
-#ifndef POLYNOMIAL_FN_MAX_DEGREE
-  #define POLYNOMIAL_FN_MAX_DEGREE (6)
+#ifdef POLYNOMIAL_FIXED_FN_DEGREE
+  #define POLYNOMIAL_FN_MAX_DEGREE \
+    (POLYNOMIAL_FIXED_FN_DEGREE)
+#else
+  #ifndef POLYNOMIAL_FN_MAX_DEGREE
+    #define POLYNOMIAL_FN_MAX_DEGREE (6)
+  #endif
 #endif
 
 /**
- * @name polynomial_max_table_entry_identifiers:
+ * @name polynomial_max_table_identifiers:
  */
-#ifndef POLYNOMIAL_MAX_TABLE_ENTRY_IDENTIFIERS
-  #define POLYNOMIAL_MAX_TABLE_ENTRY_IDENTIFIERS (4)
+#ifdef POLYNOMIAL_FIXED_NR_TABLE_IDENTIFIERS
+    #define POLYNOMIAL_MAX_TABLE_IDENTIFIERS \
+      (POLYNOMIAL_FIXED_NR_TABLE_IDENTIFIERS)
+#else
+  #ifndef POLYNOMIAL_MAX_TABLE_IDENTIFIERS
+    #define POLYNOMIAL_MAX_TABLE_IDENTIFIERS (4)
+  #endif
 #endif
 
 /**
  * @name polynomial_t:
  */
 typedef struct {
-  uint8_t degree;
+  #ifndef POLYNOMIAL_FIXED_FN_DEGREE
+    uint8_t degree;
+  #endif
   polynomial_range_point_t range[2];
   polynomial_coefficient_t coeff[POLYNOMIAL_FN_MAX_DEGREE + 1];
 } polynomial_t;
@@ -54,8 +66,10 @@ typedef struct {
  * @name polynomial_table_entry_t:
  */
 typedef struct {
-  uint8_t nr_identifiers;
-  polynomial_table_id_t id[POLYNOMIAL_MAX_TABLE_ENTRY_IDENTIFIERS];
+  #ifndef POLYNOMIAL_FIXED_NR_TABLE_IDENTIFIERS
+    uint8_t nr_identifiers;
+  #endif
+  polynomial_table_id_t id[POLYNOMIAL_MAX_TABLE_IDENTIFIERS];
   polynomial_t fn;
 } polynomial_table_entry_t;
 
@@ -63,8 +77,23 @@ typedef struct {
 /**
  * @name polynomial_table_end:
  */
-#define POLYNOMIAL_TABLE_END \
-  { 0, {}, { 0, { 0, 0 }, {} } }
+#ifdef POLYNOMIAL_FIXED_FN_DEGREE
+  #ifdef POLYNOMIAL_FIXED_NR_TABLE_IDENTIFIERS
+    #define POLYNOMIAL_TABLE_END \
+      { {}, { { 0, 0 }, {} } }
+  #else
+    #define POLYNOMIAL_TABLE_END \
+      { 0, {}, { { 0, 0 }, {} } }
+  #endif
+#else
+  #ifdef POLYNOMIAL_FIXED_NR_TABLE_IDENTIFIERS
+    #define POLYNOMIAL_TABLE_END \
+      { {}, { 0, { 0, 0 }, {} } }
+  #else
+    #define POLYNOMIAL_TABLE_END \
+      { 0, {}, { 0, { 0, 0 }, {} } }
+  #endif
+#endif
 
 /**
  * @name polynomial_evaluate:

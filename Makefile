@@ -14,9 +14,10 @@ RM = rm -f
 
 LIB = 
 TRG = sim-test
-SRC = sim-test.c datetime.c polynomial.c
+SRC = sim-test.c datetime.c polynomial.c who-tables.c
 
-DEFINES =
+DEFINES = -DPOLYNOMIAL_FIXED_FN_DEGREE=6 \
+  -DPOLYNOMIAL_FIXED_NR_TABLE_IDENTIFIERS=3
 
 CFLAGS = $(DEFINES) -Os -Wall -fno-strict-aliasing \
     -std=gnu99 -fomit-frame-pointer -mmcu=atmega128 \
