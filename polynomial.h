@@ -2,8 +2,13 @@
 #ifndef __POLYNOMIAL_H__
 #define __POLYNOMIAL_H__
 
+#ifdef __AVR__
+  #include <turbo/turbo.h>
+#else
+  #include <stdlib.h>
+#endif
+
 #include <math.h>
-#include <stdlib.h>
 #include <inttypes.h>
 #include "util.h"
 
