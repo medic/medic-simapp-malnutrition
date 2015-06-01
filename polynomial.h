@@ -103,16 +103,17 @@ typedef struct {
 /**
  * @name polynomial_evaluate:
  */
-boolean_t polynomial_evaluate(float *result,
-                              polynomial_t *p,
-                              polynomial_range_point_t x);
+boolean_t polynomial_evaluate(polynomial_result_t *result,
+                              const polynomial_t *p,
+                              const polynomial_range_point_t x);
 
 /**
  * @name polynomial_table_entry_match:
  */
 boolean_t polynomial_table_entry_match(const polynomial_table_entry_t *t,
                                        uint8_t nr_identifiers,
-                                       polynomial_table_id_t *id);
+                                       polynomial_table_id_t *id,
+                                       polynomial_range_point_t *n);
 
 /**
  * @name polynomial_table_find:
@@ -120,7 +121,8 @@ boolean_t polynomial_table_entry_match(const polynomial_table_entry_t *t,
 const polynomial_table_entry_t *
   polynomial_table_find(const polynomial_table_entry_t *t,
                         uint8_t nr_identifiers,
-                        polynomial_table_id_t *id);
+                        polynomial_table_id_t *id,
+                        polynomial_range_point_t *n);
 
 #endif /* __POLYNOMIAL_H__ */
 

@@ -7,6 +7,7 @@
 
 /**
  * @name tables:
+ *   Do not reorder; the order of entries is significant.
  */
 #ifdef __AVR__
 static PROGMEM const polynomial_table_entry_t tables[] = {

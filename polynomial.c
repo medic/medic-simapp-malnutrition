@@ -4,9 +4,9 @@
 /**
  * @name polynomial_evaluate:
  */
-boolean_t polynomial_evaluate(float *result,
-                              polynomial_t *p,
-                              polynomial_range_point_t x) {
+boolean_t polynomial_evaluate(polynomial_result_t *result,
+                              const polynomial_t *p,
+                              const polynomial_range_point_t x) {
 
   if (x < p->range[0] || p->range[1] < x) {
     return FALSE; /* Not defined here */
@@ -35,7 +35,8 @@ boolean_t polynomial_evaluate(float *result,
  */
 boolean_t polynomial_table_entry_match(const polynomial_table_entry_t *t,
                                        uint8_t nr_identifiers,
-                                       polynomial_table_id_t *id) {
+                                       polynomial_table_id_t *id,
+                                       polynomial_range_point_t *n) {
   if (nr_identifiers <= 0) {
     return FALSE;
   }
@@ -50,8 +51,16 @@ boolean_t polynomial_table_entry_match(const polynomial_table_entry_t *t,
     }
   #endif
 
+  /* Check entry identifiers */
   for (unsigned int i = 0; i < nr_identifiers; ++i) {
     if (t->id[i] != id[i]) {
+      return FALSE;
+    }
+  }
+
+  /* Check range */
+  if (n) {
+    if (*n < t->fn.range[0] || t->fn.range[1] < *n) {
       return FALSE;
     }
   }
@@ -65,10 +74,11 @@ boolean_t polynomial_table_entry_match(const polynomial_table_entry_t *t,
 const polynomial_table_entry_t *
   polynomial_table_find(const polynomial_table_entry_t *t,
                         uint8_t nr_identifiers,
-                        polynomial_table_id_t *id) {
+                        polynomial_table_id_t *id,
+                        polynomial_range_point_t *n) {
 
   for (; t->fn.range[0] > 0 || t->fn.range[1] > 0; t++) {
-    if (polynomial_table_entry_match(t, nr_identifiers, id)) {
+    if (polynomial_table_entry_match(t, nr_identifiers, id, n)) {
       return t;
     }
   }
