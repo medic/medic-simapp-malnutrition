@@ -59,11 +59,13 @@ boolean_t grade_calculate(grade_result_t *result,
     float difference = (
       result->values[i] - result->values[i - 1]
     );
-    decimal = (
-      difference > 0 ?
-        (input - result->values[i - 1]) / difference
-          : (result->values[i] - input) / -difference
-    );
+    if (difference != 0.0) {
+      decimal = (
+        difference > 0 ?
+          (input - result->values[i - 1]) / difference
+            : (result->values[i] - input) / -difference
+      );
+    }
   }
 
   /* Save results */
