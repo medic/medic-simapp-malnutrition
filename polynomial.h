@@ -25,7 +25,7 @@ typedef polynomial_result_t polynomial_coefficient_t;
 /**
  * @name polynomial_domain_point_t:
  */
-typedef int16_t polynomial_domain_point_t;
+typedef float polynomial_domain_point_t;
 
 /**
  * @name polynomial_table_id_t:
