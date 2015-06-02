@@ -23,9 +23,9 @@ typedef float polynomial_result_t;
 typedef polynomial_result_t polynomial_coefficient_t;
 
 /**
- * @name polynomial_range_point_t:
+ * @name polynomial_domain_point_t:
  */
-typedef int16_t polynomial_range_point_t;
+typedef int16_t polynomial_domain_point_t;
 
 /**
  * @name polynomial_table_id_t:
@@ -63,7 +63,7 @@ typedef struct polynomial {
   #ifndef POLYNOMIAL_FIXED_FN_DEGREE
     uint8_t degree;
   #endif
-  polynomial_range_point_t range[2];
+  polynomial_domain_point_t domain[2];
   polynomial_coefficient_t coeff[POLYNOMIAL_FN_MAX_DEGREE + 1];
 } polynomial_t;
 
@@ -105,7 +105,7 @@ typedef struct polynomial_table_entry {
  */
 boolean_t polynomial_evaluate(polynomial_result_t *result,
                               const polynomial_t *p,
-                              const polynomial_range_point_t x);
+                              const polynomial_domain_point_t x);
 
 /**
  * @name polynomial_table_entry_match:
@@ -113,7 +113,12 @@ boolean_t polynomial_evaluate(polynomial_result_t *result,
 boolean_t polynomial_table_entry_match(const polynomial_table_entry_t *t,
                                        uint8_t nr_identifiers,
                                        polynomial_table_id_t *id,
-                                       polynomial_range_point_t *n);
+                                       polynomial_domain_point_t *n);
+
+/**
+ * @name polynomial_is_table_terminator:
+ */
+boolean_t polynomial_is_table_terminator(const polynomial_table_entry_t *t);
 
 /**
  * @name polynomial_table_find:
@@ -122,7 +127,7 @@ const polynomial_table_entry_t *
   polynomial_table_find(const polynomial_table_entry_t *t,
                         uint8_t nr_identifiers,
                         polynomial_table_id_t *id,
-                        polynomial_range_point_t *n);
+                        polynomial_domain_point_t *n);
 
 #endif /* __POLYNOMIAL_H__ */
 

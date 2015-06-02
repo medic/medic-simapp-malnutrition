@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[]) {
 
-  polynomial_range_point_t n;
+  polynomial_domain_point_t n;
   polynomial_result_t result;
   const polynomial_table_entry_t *e;
 

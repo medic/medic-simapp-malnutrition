@@ -6,9 +6,9 @@
  */
 boolean_t polynomial_evaluate(polynomial_result_t *result,
                               const polynomial_t *p,
-                              const polynomial_range_point_t x) {
+                              const polynomial_domain_point_t x) {
 
-  if (x < p->range[0] || p->range[1] < x) {
+  if (x < p->domain[0] || p->domain[1] < x) {
     return FALSE; /* Not defined here */
   }
 
@@ -36,7 +36,7 @@ boolean_t polynomial_evaluate(polynomial_result_t *result,
 boolean_t polynomial_table_entry_match(const polynomial_table_entry_t *t,
                                        uint8_t nr_identifiers,
                                        polynomial_table_id_t *id,
-                                       polynomial_range_point_t *n) {
+                                       polynomial_domain_point_t *n) {
   if (nr_identifiers <= 0) {
     return FALSE;
   }
@@ -58,14 +58,22 @@ boolean_t polynomial_table_entry_match(const polynomial_table_entry_t *t,
     }
   }
 
-  /* Check range */
+  /* Check domain */
   if (n) {
-    if (*n < t->fn.range[0] || t->fn.range[1] < *n) {
+    if (*n < t->fn.domain[0] || t->fn.domain[1] < *n) {
       return FALSE;
     }
   }
 
   return TRUE;
+}
+
+/**
+ * @name polynomial_is_table_terminator:
+ */
+boolean_t polynomial_is_table_terminator(const polynomial_table_entry_t *t) {
+
+  return (t->fn.domain[0] == 0 && t->fn.domain[1] == 0);
 }
 
 /**
@@ -75,9 +83,9 @@ const polynomial_table_entry_t *
   polynomial_table_find(const polynomial_table_entry_t *t,
                         uint8_t nr_identifiers,
                         polynomial_table_id_t *id,
-                        polynomial_range_point_t *n) {
+                        polynomial_domain_point_t *n) {
 
-  for (; t->fn.range[0] > 0 || t->fn.range[1] > 0; t++) {
+  for (; polynomial_is_table_terminator(t); t++) {
     if (polynomial_table_entry_match(t, nr_identifiers, id, n)) {
       return t;
     }
