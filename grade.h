@@ -39,6 +39,7 @@
 typedef struct grade_result {
   int8_t grade;
   uint8_t between[2];
+  float grade_interpolated;
   polynomial_result_t values[GRADE_NR_TOTAL];
 } grade_result_t;
 

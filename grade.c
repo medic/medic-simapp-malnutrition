@@ -11,7 +11,6 @@ boolean_t grade_calculate(grade_result_t *result,
                           polynomial_domain_point_t x,
                           polynomial_result_t input) {
 
-  unsigned int i = 0;
   int8_t grade = GRADE_NR_MINIMUM;
   const polynomial_table_entry_t *e = t;
 
@@ -23,6 +22,8 @@ boolean_t grade_calculate(grade_result_t *result,
   memset(result, '\0', sizeof(*result));
 
   /* Evaluate each curve */
+  unsigned int i = 0;
+
   while (grade <= GRADE_NR_MAXIMUM) {
 
     id[nr_identifiers - 1] = grade;
@@ -46,11 +47,29 @@ boolean_t grade_calculate(grade_result_t *result,
     }
   }
 
-  /* Yield results */
+  /* Save results */
   result->between[1] = i;
   result->between[0] = (i > 0 ? i - 1 : i);
   result->grade = (GRADE_NR_MINIMUM - 1) + i;
 
+  /* Linearly interpolate decimal portion */
+  float decimal = 0.0;
+
+  if (i > 0 && i < GRADE_NR_TOTAL) {
+    float difference = (
+      result->values[i] - result->values[i - 1]
+    );
+    decimal = (
+      difference > 0 ?
+        (input - result->values[i - 1]) / difference
+          : (result->values[i] - input) / -difference
+    );
+  }
+
+  /* Save results */
+  result->grade_interpolated = (float) result->grade + decimal;
+
+  /* Success */
   return TRUE;
 }
 

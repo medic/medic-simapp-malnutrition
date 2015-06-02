@@ -45,6 +45,7 @@ int main(int argc, char *argv[]) {
   assert(result.between[0] == 8);
   assert(result.between[1] == 9);
   assert(result.grade == 4);
+  assert(result.grade_interpolated == 4.0);
 
   valid = grade_calculate(&result, who_tables, 3, id1, 10, 6.0);
   assert(valid == TRUE);
