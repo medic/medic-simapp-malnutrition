@@ -85,7 +85,7 @@ const polynomial_table_entry_t *
                         polynomial_table_id_t *id,
                         polynomial_domain_point_t *n) {
 
-  for (; polynomial_is_table_terminator(t); t++) {
+  for (; !polynomial_is_table_terminator(t); t++) {
     if (polynomial_table_entry_match(t, nr_identifiers, id, n)) {
       return t;
     }
