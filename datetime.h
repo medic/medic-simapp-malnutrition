@@ -13,7 +13,7 @@
 /**
  * @name stk_datetime_t:
  */
-typedef struct {
+typedef struct stk_datetime {
   uint16_t year;
   uint8_t month;
   uint8_t day;
@@ -24,7 +24,7 @@ typedef struct {
 /**
  * @name stk_datetime_info_t:
  */
-typedef struct {
+typedef struct stk_datetime_info {
   uint8_t century;
   uint8_t pivot;
 } stk_datetime_info_t;

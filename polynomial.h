@@ -59,7 +59,7 @@ typedef int8_t polynomial_table_id_t;
 /**
  * @name polynomial_t:
  */
-typedef struct {
+typedef struct polynomial {
   #ifndef POLYNOMIAL_FIXED_FN_DEGREE
     uint8_t degree;
   #endif
@@ -70,7 +70,7 @@ typedef struct {
 /**
  * @name polynomial_table_entry_t:
  */
-typedef struct {
+typedef struct polynomial_table_entry {
   #ifndef POLYNOMIAL_FIXED_NR_TABLE_IDENTIFIERS
     uint8_t nr_identifiers;
   #endif
