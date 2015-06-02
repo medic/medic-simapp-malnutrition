@@ -52,9 +52,16 @@ boolean_t grade_calculate(grade_result_t *result,
   result->between[0] = (i > 0 ? i - 1 : i);
   result->grade = (GRADE_NR_MINIMUM - 1) + i;
 
+  /* Low-end saturation */
+  if (result->grade < GRADE_NR_MINIMUM) {
+    result->grade_interpolated = (float) GRADE_NR_MINIMUM;
+    return TRUE;
+  }
+
   /* Linearly interpolate decimal portion */
   float decimal = 0.0;
 
+  /* High-end saturation */
   if (i > 0 && i < GRADE_NR_TOTAL) {
     float difference = (
       result->values[i] - result->values[i - 1]

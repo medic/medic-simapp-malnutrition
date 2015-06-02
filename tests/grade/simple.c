@@ -21,12 +21,15 @@ int main(int argc, char *argv[]) {
   assert(result.between[0] == 0);
   assert(result.between[1] == 0);
   assert(result.grade == -5);
+  assert(result.grade_interpolated == -4.0);
 
   valid = grade_calculate(&result, who_tables, 3, id1, 4, 1.8);
   assert(valid == TRUE);
   assert(result.between[0] == 0);
   assert(result.between[1] == 1);
   assert(result.grade == -4);
+  assert(result.grade_interpolated > -4.0);
+  assert(result.grade_interpolated < -3.9);
 
   valid = grade_calculate(&result, who_tables, 3, id1, 4, 3.5);
   assert(valid == TRUE);
