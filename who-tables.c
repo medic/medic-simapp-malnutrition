@@ -6,13 +6,13 @@
 #endif
 
 /**
- * @name tables:
+ * @name who_tables:
  *   Do not reorder; the order of entries is significant.
  */
 #ifdef __AVR__
-static PROGMEM const polynomial_table_entry_t tables[] = {
+const PROGMEM polynomial_table_entry_t who_tables[] = {
 #else
-static const polynomial_table_entry_t tables[] = {
+const polynomial_table_entry_t who_tables[] = {
 #endif
 
   { { T_WFA, G_FEMALE, -4 },
@@ -557,9 +557,4 @@ static const polynomial_table_entry_t tables[] = {
 
   POLYNOMIAL_TABLE_END
 };
-
-/**
- * @name who_tables:
- */
-const polynomial_table_entry_t *who_tables = tables;
 

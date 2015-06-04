@@ -21,10 +21,15 @@ typedef enum {
   G_MALE
 } who_gender_t;
 
+
 /**
  * @name who_tables:
  */
-const polynomial_table_entry_t *who_tables;
+#ifdef __AVR__
+  extern const PROGMEM polynomial_table_entry_t who_tables[];
+#else
+  extern const polynomial_table_entry_t who_tables[];
+#endif
 
 #endif /* __WHO_TABLES_H__ */
 
