@@ -62,6 +62,22 @@ int main(int argc, char *argv[]) {
   assert(result.between[1] == 8);
   assert(result.grade == 3);
 
+  valid = grade_calculate(&result, who_tables, 3, id1, 184, 5.0);
+  assert(valid == TRUE);
+  assert(result.between[0] == 0);
+  assert(result.between[1] == 1);
+  assert(result.grade == -4);
+  assert(result.grade_interpolated > -3.1);
+  assert(result.grade_interpolated < -3.0);
+
+  valid = grade_calculate(&result, who_tables, 3, id1, 184, 5.1);
+  assert(valid == TRUE);
+  assert(result.between[0] == 1);
+  assert(result.between[1] == 2);
+  assert(result.grade == -3);
+  assert(result.grade_interpolated > -3.0);
+  assert(result.grade_interpolated < -2.9);
+
   polynomial_table_id_t id2[] = { T_LHFA, G_MALE, 0 };
 
   valid = grade_calculate(&result, who_tables, 3, id1, -1, 0.0);
