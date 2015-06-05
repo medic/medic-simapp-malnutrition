@@ -11,8 +11,8 @@ boolean_t grade_calculate(grade_result_t *result,
                           polynomial_domain_point_t x,
                           polynomial_result_t input) {
 
-  int8_t grade = GRADE_NR_MINIMUM;
   const polynomial_table_entry_t *e = t;
+  polynomial_table_id_t grade = GRADE_NR_MINIMUM;
 
   if (nr_identifiers <= 0) {
     return FALSE;

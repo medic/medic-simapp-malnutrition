@@ -13,6 +13,34 @@
 #include "util.h"
 
 /**
+ * @name AVR compatibility macros:
+ */
+#ifdef __AVR__
+
+  /**
+   * @name polynomial_read_float:
+   */
+  float polynomial_read_float(const float *p);
+
+  /* AVR flash memory implementation */
+  #define _polynomial_nr_read(x) ((uint8_t) rb(&(x)))
+  #define _polynomial_degree_read(x) ((uint8_t) rb(&(x)))
+  #define _polynomial_identifier_read(x) ((int8_t) rb(&(x)))
+  #define _polynomial_domain_point_read(x) ((int16_t) rw(&(x)))
+  #define _polynomial_coefficient_read(x) polynomial_read_float(&(x))
+
+#else
+
+  /* Normal C implementation */
+  #define _polynomial_nr_read(x) (x)
+  #define _polynomial_degree_read(x) (x)
+  #define _polynomial_identifier_read(x) (x)
+  #define _polynomial_coefficient_read(x) (x)
+  #define _polynomial_domain_point_read(x) (x)
+
+#endif
+
+/**
  * @name polynomial_result_t:
  */
 typedef float polynomial_result_t;
@@ -25,7 +53,7 @@ typedef polynomial_result_t polynomial_coefficient_t;
 /**
  * @name polynomial_domain_point_t:
  */
-typedef float polynomial_domain_point_t;
+typedef int16_t polynomial_domain_point_t;
 
 /**
  * @name polynomial_table_id_t:

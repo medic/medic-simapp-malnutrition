@@ -10,9 +10,9 @@
  *   Do not reorder; the order of entries is significant.
  */
 #ifdef __AVR__
-const PROGMEM polynomial_table_entry_t who_tables[] = {
+  const PROGMEM polynomial_table_entry_t who_tables[] = {
 #else
-const polynomial_table_entry_t who_tables[] = {
+  const polynomial_table_entry_t who_tables[] = {
 #endif
 
   { { T_WFA, G_FEMALE, -4 },
