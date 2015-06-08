@@ -50,8 +50,8 @@ boolean_t grade_calculate(grade_result_t *result,
                           const polynomial_table_entry_t *t,
                           uint8_t nr_identifiers,
                           polynomial_table_id_t *id,
-                          polynomial_domain_point_t x,
-                          polynomial_result_t input);
+                          polynomial_input_t x,
+                          polynomial_result_t y);
 
 
 #endif /* __GRADE_H__ */

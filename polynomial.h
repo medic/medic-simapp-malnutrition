@@ -46,9 +46,14 @@
 typedef float polynomial_result_t;
 
 /**
- * @name coefficient_t:
+ * @name polynomial_input_t:
  */
-typedef polynomial_result_t polynomial_coefficient_t;
+typedef float polynomial_input_t;
+
+/**
+ * @name polynomial_coefficient_t:
+ */
+typedef float polynomial_coefficient_t;
 
 /**
  * @name polynomial_domain_point_t:
@@ -133,7 +138,7 @@ typedef struct polynomial_table_entry {
  */
 boolean_t polynomial_evaluate(polynomial_result_t *result,
                               const polynomial_t *p,
-                              const polynomial_domain_point_t x);
+                              const polynomial_input_t x);
 
 /**
  * @name polynomial_table_entry_match:

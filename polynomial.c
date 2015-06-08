@@ -24,7 +24,7 @@ float polynomial_read_float(const float *p) {
  */
 boolean_t polynomial_evaluate(polynomial_result_t *result,
                               const polynomial_t *p,
-                              const polynomial_domain_point_t x) {
+                              const polynomial_input_t x) {
 
   polynomial_domain_point_t d0 =
     _polynomial_domain_point_read(p->domain[0]);
@@ -37,7 +37,7 @@ boolean_t polynomial_evaluate(polynomial_result_t *result,
   }
 
   polynomial_result_t xn = x;
-  polynomial_result_t rv = _polynomial_coefficient_read(p->coeff[0]);
+  polynomial_coefficient_t rv = _polynomial_coefficient_read(p->coeff[0]);
 
   #ifndef POLYNOMIAL_FIXED_FN_DEGREE
     uint8_t degree = _polynomial_degree_read(p->degree);

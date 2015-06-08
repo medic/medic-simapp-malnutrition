@@ -8,19 +8,32 @@
  * @name who_table_type_t:
  */
 typedef enum {
-  T_WFA = 1,
+  T_START = 0,
+  T_WFA,
   T_LHFA,
-  T_WFL
+  T_WFL,
+  T_END
 } who_table_type_t;
+
+/**
+ * @name who_nr_table_types:
+ */
+#define WHO_NR_TABLE_TYPES (T_END - 1)
 
 /**
  * @name who_gender_t:
  */
 typedef enum {
-  G_FEMALE = 1,
-  G_MALE
+  G_START = 0,
+  G_FEMALE,
+  G_MALE,
+  G_END
 } who_gender_t;
 
+/**
+ * @name who_nr_genders:
+ */
+#define WHO_NR_GENDERS (G_END - 1)
 
 /**
  * @name who_tables:
