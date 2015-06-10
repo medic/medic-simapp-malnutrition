@@ -26,24 +26,6 @@ boolean_t decode_bcd(uint8_t *result, uint8_t in) {
 }
 
 /**
- * @name decode_bcd_uint16:
- *   Extract a two-decimal-digit number from the one-byte
- *   binary-coded-decimal input `in`. Place the result in
- *   the sixteen-bit result value pointed to by `result`.
- */
-boolean_t decode_bcd_uint16(uint16_t *result, uint8_t in) {
-
-  uint8_t rv = 0;
-
-  if (!decode_bcd(&rv, in)) {
-    return FALSE;
-  }
-
-  *result = (uint16_t) rv;
-  return TRUE;
-}
-
-/**
  * @name _stk_compare_datetime_times:
  *   Compare only the time portions of `t1` and `t2`, ignoring the
  *   date portion entirely. Return 0 if the two times are equal,
@@ -95,12 +77,16 @@ boolean_t stk_retrieve_current_datetime(stk_datetime_t *result,
   }
 
   /* Decode each component:
-   *   If anything isn't valid binary-coded-decimal,
-   *   fail the whole operation by returning false. */
+   *  If anything isn't valid binary-coded-decimal,
+   *  fail the whole operation by returning false. */
 
-  if (!decode_bcd_uint16(&result->year, data[0])) {
+  uint8_t year;
+
+  if (!decode_bcd(&year, data[0])) {
     return FALSE;
   }
+
+  result->year = (uint16_t) year;
 
   if (!decode_bcd(&result->month, data[1])) {
     return FALSE;
@@ -117,6 +103,7 @@ boolean_t stk_retrieve_current_datetime(stk_datetime_t *result,
   if (!decode_bcd(&result->minute, data[4])) {
     return FALSE;
   }
+
 
   /* Add century to year */
   result->year += (
@@ -153,6 +140,7 @@ boolean_t stk_retrieve_current_datetime(stk_datetime_t *result,
 #endif /* defined __AVR__ */
 
 
+#if !defined __AVR__
 /**
  * @name stk_set_datetime:
  *   Set all components of `t` based upon the provided arguments.
@@ -170,6 +158,7 @@ boolean_t stk_set_datetime(stk_datetime_t *t, uint16_t y,
 
   return stk_validate_datetime(t);
 }
+#endif /* ! ddefined __AVR__ */
 
 /**
  * @name stk_validate_datetime:
