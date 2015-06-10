@@ -11,7 +11,7 @@ typedef enum {
   T_START = 0,
   T_WFA,
   T_LHFA,
-  T_WFL,
+  T_WFH,
   T_END
 } who_table_type_t;
 
